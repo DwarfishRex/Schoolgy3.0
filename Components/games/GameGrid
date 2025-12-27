@@ -1,0 +1,33 @@
+import React from "react";
+import GameCard from "./GameCard";
+import { Gamepad2 } from "lucide-react";
+
+export default function GameGrid({ games, isLoading }) {
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="bg-slate-800/50 rounded-2xl overflow-hidden border border-white/5 animate-pulse">
+            <div className="aspect-video bg-slate-700/50" />
+            <div className="p-5 space-y-3">
+              <div className="h-5 bg-slate-700/50 rounded w-3/4" />
+              <div className="h-4 bg-slate-700/50 rounded w-full" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (!games || games.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {games.map((game, index) => (
+        <GameCard key={game.id} game={game} index={index} />
+      ))}
+    </div>
+  );
+}
